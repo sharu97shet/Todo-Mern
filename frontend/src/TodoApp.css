@@ -9,6 +9,7 @@
   border-radius: 8px;
 }
 .App h1{
+  font-size: 40px;
   text-align: center;
 }
 .form{
@@ -42,11 +43,35 @@
   flex-direction: column;
 }
 .todo-item{
+  position: relative;
+  background-color: blueviolet;
+  padding: 10px;
+	border-radius: 16px;
   display:flex;
+  transition: 0.5s;
+	cursor: pointer;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px
 }
+.todo-item:hover{
+  opacity: 0.9;
+  background-color: goldenrod;
+  font-size: large;
+ 
+}
+
+.todo-item .checkbox {
+	width: 20px;
+	height: 20px;
+	margin-right: 16px;
+	border-radius: 50%;
+	background-color: black;
+	background-image: linear-gradient(to bottom, transparent, transparent);
+	transition: 0.4s;
+}
+
+
 .item-content{
   width: 60%
 }
