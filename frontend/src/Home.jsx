@@ -12,6 +12,8 @@ const[task, setTask]=useState('')
 const [isUpdating, setIsUpdating] = useState('');
 const [updateItemText, setUpdateItemText] = useState('');
 
+const [firstclass, changeClass] = useState('todo-item');
+
  const handleAdd= async (event)=>
  {
     //alert(event)
@@ -87,6 +89,29 @@ const updateItem = async (e) => {
   }
 }
 
+const completeTodo = async(id) => {
+
+       alert(id)
+
+const data = await fetch(`http://localhost:3001` + '/complete/' + id).then(res => res.json());
+
+  setTodos(todos => todos.map(todo => {
+    if (todo._id === data._id) {
+      todo.complete = data.complete;
+    }
+
+    return todo;
+  }));
+  
+}
+
+
+
+
+
+
+
+
 //before updating item we need to show input field where we will create our updated item
 const renderUpdateForm = () => (
   <form className="update-form" onSubmit={(e)=>{updateItem(e)}} >
@@ -118,11 +143,13 @@ return (
 {
   todos.length==0?<div> No records </div>:
   todos.map(item => (
-  <div className="todo-item">
+  <div className={"todo-item " + (item.complete ? "is-complete" : "")}    key={item._id} 
+    onClick={() => completeTodo(item._id)} >
     {
       isUpdating === item._id
       ? renderUpdateForm()
       : <>
+      <div className="checkbox" ></div>
           <p className="item-content">{item.task}</p>
           <button className="update-item" onClick={()=>{setIsUpdating(item._id)}}>Update</button>
           <button className="delete-item" onClick={()=>{deleteItem(item._id)}}>Delete</button>

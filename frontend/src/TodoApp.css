@@ -58,7 +58,13 @@
   opacity: 0.9;
   background-color: goldenrod;
   font-size: large;
+  text-transform: uppercase;
  
+}
+
+.todo-item.is-complete .checkbox {
+	background-color: var(--primary);
+	background-image: linear-gradient(to bottom, var(--primary), var(--secondary));
 }
 
 .todo-item .checkbox {
@@ -69,6 +75,13 @@
 	background-color: black;
 	background-image: linear-gradient(to bottom, transparent, transparent);
 	transition: 0.4s;
+}
+
+
+
+.todo-item.is-complete  {
+  
+	text-decoration: line-through;
 }
 
 

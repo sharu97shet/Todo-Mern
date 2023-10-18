@@ -42,6 +42,20 @@ app.get('/getTodos', (req,res)=>{
    
 } )
 
+
+//complete todo
+
+app.get('/complete/:id', async (req, res) => {
+  console.log(req.params.id)
+	const todo = await Todomodel.findById(req.params.id);
+
+	todo.complete = !todo.complete;
+
+	todo.save();
+
+	res.json(todo);
+})
+
 app.delete('/deleteTodo/:id',async(req,res)=>  {
     try{
         const deleteItem = await Todomodel.findByIdAndDelete(req.params.id);

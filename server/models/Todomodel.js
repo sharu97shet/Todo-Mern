@@ -11,7 +11,7 @@ const Todoschema=new mongoose.Schema({
   default:false
  },
  timestamp:{
-  type:String,
+  type:Date,
   default:Date.now()
  }
    
