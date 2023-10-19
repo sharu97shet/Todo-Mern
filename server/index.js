@@ -70,11 +70,27 @@ app.delete('/deleteTodo/:id',async(req,res)=>  {
 //update item
 app.put('/updateTodo/:id', async (req, res)=>{
     try{
-        console.log(req.body)
+      const todoId = req.params.id;
+      const updatedTodo = req.body;
+      console.log(todoId)
+      console.log(updatedTodo)
       //find the item by its id and update it
-      const updateItem = await Todomodel.findByIdAndUpdate(req.params.id, {$set: req.body});
-      res.status(200).json(updateItem);
+      const updateItem = await Todomodel.findById(req.params.id)
+      updateItem.task=req.body.item
+      updateItem.save()
+     
+      return res.json(updateItem);
+//       Todomodel.findByIdAndUpdate(req.params.id, updatedTodo, {new:true} ,(err, updatedTodo)=>{
+//         if (err) {
+//           return res.status(500).json({ error: 'An error occurred while updating the todo.' });
+//         }
+
+//         return res.json(updatedTodo);
+//  })
+
     }catch(err){
+      console.log("catch block ")
+      console.log(err)
       res.json(err);
     }
   })

@@ -75,14 +75,12 @@ const updateItem = async (e) => {
   e.preventDefault()
   try{
     const res = await axios.put(`http://localhost:3001/updateTodo/${isUpdating}`, {item: updateItemText})
-    console.log(res.data)
+  //  console.log(res.data)
+    const updatedItemIndex = todos.findIndex(item => item._id === isUpdating);
+    const updatedItem = todos[updatedItemIndex].task = updateItemText;
 
-    setTodos(todos=>todos.filter(item=>item._id==id))
-
-
-    // const updatedItemIndex = setTodos.findIndex(item => item._id === isUpdating);
-    // const updatedItem = setTodos[updatedItemIndex].item = updateItemText;
-    setUpdateItemText('');
+    //setTodos(todos=>todos.filter(item=>item._id==isUpdating))
+    setUpdateItemText('')
     setIsUpdating('');
   }catch(err){
     console.log(err);
@@ -91,9 +89,11 @@ const updateItem = async (e) => {
 
 const completeTodo = async(id) => {
 
-       alert(id)
+      // alert(id)
 
 const data = await fetch(`http://localhost:3001` + '/complete/' + id).then(res => res.json());
+
+alert(data.task+"is completed")
 
   setTodos(todos => todos.map(todo => {
     if (todo._id === data._id) {
@@ -106,21 +106,14 @@ const data = await fetch(`http://localhost:3001` + '/complete/' + id).then(res =
 }
 
 
-
-
-
-
-
-
-//before updating item we need to show input field where we will create our updated item
-const renderUpdateForm = () => (
+//before updating item we need to show input field where we will create our updated item value={updateItemText}
+const renderUpdateForm = (taskname) => (
+ 
   <form className="update-form" onSubmit={(e)=>{updateItem(e)}} >
-    <input className="update-new-input" type="text" placeholder="New Item" onChange={e=>{setUpdateItemText(e.target.value)}} value={updateItemText} />
+    <input className="update-new-input" type="text" value={updateItemText}  placeholder="New Item" onChange={e=>{setUpdateItemText(e.target.value)}}  />
     <button className="update-new-btn" type="submit">Update</button>
   </form>
 )
-
-
 
 
 return (
@@ -143,13 +136,13 @@ return (
 {
   todos.length==0?<div> No records </div>:
   todos.map(item => (
-  <div className={"todo-item " + (item.complete ? "is-complete" : "")}    key={item._id} 
-    onClick={() => completeTodo(item._id)} >
+  <div className="todo-item"   key={item._id} 
+     >
     {
       isUpdating === item._id
-      ? renderUpdateForm()
+      ? renderUpdateForm(item.task)
       : <>
-      <div className="checkbox" ></div>
+      <div className={"checkbox"+ (item.complete ? "is-complete" : "")}  onClick={() => completeTodo(item._id)} ></div>
           <p className="item-content">{item.task}</p>
           <button className="update-item" onClick={()=>{setIsUpdating(item._id)}}>Update</button>
           <button className="delete-item" onClick={()=>{deleteItem(item._id)}}>Delete</button>
@@ -163,27 +156,6 @@ return (
 </div>
 
 
-
-
-      // <div className="todo-listItems">
-        
-      //  { todos.length==0?<div> No records </div>:
-      //   todos.map((todo,index)=>{ 
-      //       return (
-      //         <div className="todo-item">
-
-      //      <p className="item-content">{todo.task}</p>
-      //      <button className="update-item">Update</button>
-      //      <button className="update-item"  onClick={()=>{deleteItem(todo._id)}} >Delete</button>
-           
-      //         </div>
-               
-      //       )
-
-      //   })
-      // }
-
-      //   </div>
 
     }
    

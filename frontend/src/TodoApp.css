@@ -62,10 +62,10 @@
  
 }
 
-.todo-item.is-complete .checkbox {
+/* .todo-item.is-complete .checkbox {
 	background-color: var(--primary);
 	background-image: linear-gradient(to bottom, var(--primary), var(--secondary));
-}
+} */
 
 .todo-item .checkbox {
 	width: 20px;
@@ -79,10 +79,12 @@
 
 
 
-.todo-item.is-complete  {
+/* .todo-item.is-complete  {
   
 	text-decoration: line-through;
-}
+} */
+
+
 
 
 .item-content{
