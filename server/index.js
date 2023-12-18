@@ -6,7 +6,10 @@ const Todomodel = require('./models/Todomodel')
 
 const app=express()
 app.use(express.json()) 
-app.use(cors())
+app.use(cors({origin:["https://todo-mern-kx7u-sharath-n-shets-projects.vercel.app/"],
+	     methods:["POST","GET"],
+	     credentials:true
+	     }))
 
 const { MongoClient } = require('mongodb'); 
 // @cluster0.8aiakn4.mongodb.net/?retryWrites=true&w=majority
