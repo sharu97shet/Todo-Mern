@@ -19,7 +19,7 @@ const [firstclass, changeClass] = useState('todo-item');
     //alert(event)
     event.preventDefault()
     try{
-      const res=await axios.post('http://localhost:3001/add',{task:task})
+      const res=await axios.post('http://todo-mern-api.vercel.app/add',{task:task})
       setTodos(prev => [...prev, res.data]);
       setTask('');
 
@@ -44,7 +44,7 @@ const [firstclass, changeClass] = useState('todo-item');
 useEffect(() => {
   const fetchTodoData = async() =>{
     
-  const fetchTodos = await fetch('http://localhost:3001/getTodos')
+  const fetchTodos = await fetch('http://todo-mern-api.vercel.app/getTodos')
   const data= await fetchTodos.json()
   setTodos(data);
   }
@@ -59,7 +59,7 @@ useEffect(() => {
 
 const deleteItem = async (id) => {
   try{
-    const res = await axios.delete(`http://localhost:3001/deleteTodo/${id}`)
+    const res = await axios.delete(`http://todo-mern-api.vercel.app/eleteTodo/${id}`)
 
     setTodos(todos=>todos.filter(item=>item._id!==id))
 
@@ -74,7 +74,7 @@ const deleteItem = async (id) => {
 const updateItem = async (e) => {
   e.preventDefault()
   try{
-    const res = await axios.put(`http://localhost:3001/updateTodo/${isUpdating}`, {item: updateItemText})
+    const res = await axios.put(`http://todo-mern-api.vercel.app/${isUpdating}`, {item: updateItemText})
   //  console.log(res.data)
     const updatedItemIndex = todos.findIndex(item => item._id === isUpdating);
     const updatedItem = todos[updatedItemIndex].task = updateItemText;
@@ -91,7 +91,7 @@ const completeTodo = async(id) => {
 
       // alert(id)
 
-const data = await fetch(`http://localhost:3001` + '/complete/' + id).then(res => res.json());
+const data = await fetch(`http://todo-mern-api.vercel.app/` + '/complete/' + id).then(res => res.json());
 
 alert(data.task+"is completed")
 
